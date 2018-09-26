@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x8EB71A70831B56D1 (brian@python.org)
 #
 Name     : deprecation
-Version  : 2.0.5
-Release  : 1
-URL      : https://files.pythonhosted.org/packages/dd/06/aed49f13984c4acfcd67d699b2a0e96fefd2f9c700ce88a43120eb0363e2/deprecation-2.0.5.tar.gz
-Source0  : https://files.pythonhosted.org/packages/dd/06/aed49f13984c4acfcd67d699b2a0e96fefd2f9c700ce88a43120eb0363e2/deprecation-2.0.5.tar.gz
-Source99 : https://files.pythonhosted.org/packages/dd/06/aed49f13984c4acfcd67d699b2a0e96fefd2f9c700ce88a43120eb0363e2/deprecation-2.0.5.tar.gz.asc
+Version  : 2.0.6
+Release  : 2
+URL      : https://files.pythonhosted.org/packages/cd/35/ab3995718c7b12d6a5e69f40540fe1df0b505cca5ee6af169d23ab9d0b00/deprecation-2.0.6.tar.gz
+Source0  : https://files.pythonhosted.org/packages/cd/35/ab3995718c7b12d6a5e69f40540fe1df0b505cca5ee6af169d23ab9d0b00/deprecation-2.0.6.tar.gz
+Source99 : https://files.pythonhosted.org/packages/cd/35/ab3995718c7b12d6a5e69f40540fe1df0b505cca5ee6af169d23ab9d0b00/deprecation-2.0.6.tar.gz.asc
 Summary  : A library to handle automated deprecations
 Group    : Development/Tools
 License  : Apache-2.0
@@ -34,7 +34,7 @@ license components for the deprecation package.
 %package python
 Summary: python components for the deprecation package.
 Group: Default
-Requires: deprecation-python3
+Requires: deprecation-python3 = %{version}-%{release}
 
 %description python
 python components for the deprecation package.
@@ -50,21 +50,21 @@ python3 components for the deprecation package.
 
 
 %prep
-%setup -q -n deprecation-2.0.5
+%setup -q -n deprecation-2.0.6
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1533788893
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1537999937
+python3 setup.py build
 
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/deprecation
 cp LICENSE %{buildroot}/usr/share/doc/deprecation/LICENSE
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -73,7 +73,7 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/doc/deprecation/LICENSE
 
 %files python
